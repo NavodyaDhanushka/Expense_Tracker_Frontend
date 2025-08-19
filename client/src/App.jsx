@@ -1,35 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import DashboardCard from "./components/DashboardCard.jsx";
+import ExpenseForm from "./components/ExpenseForm.jsx";
+import ExpenseTable from "./components/ExpenseTable.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [expenses, setExpenses] = useState([]);
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    const handleAddExpense = (expense) => {
+        setExpenses([...expenses, { ...expense, _id: Date.now() }]);
+    };
+
+    const handleDeleteExpense = (id) => {
+        setExpenses(expenses.filter((e) => e._id !== id));
+    };
+
+    const handleEditExpense = (updatedExpense) => {
+        setExpenses(
+            expenses.map((e) => (e._id === updatedExpense._id ? updatedExpense : e))
+        );
+    };
+
+    return (
+        <div className="h-screen bg-gray-100 p-6 flex flex-col">
+            <h1 className="text-2xl font-bold mb-6">Expense Tracker</h1>
+
+            <div className="flex flex-1 gap-6 w-full h-full">
+                {/* Left side: Form */}
+                <div className="w-1/3 space-y-4">
+                    {/*<div className="flex flex-wrap gap-4">
+                        <DashboardCard title="Total Expenses" value="LKR 2,450.00" />
+                        <DashboardCard title="This Month" value="LKR 890.50" />
+                        <DashboardCard title="Total Transactions" value="127" />
+                    </div>*/}
+
+                    <ExpenseForm onAdd={handleAddExpense} />
+                </div>
+
+                {/* Right side: Table */}
+                <div className="w-2/3 flex flex-col">
+                    <div className="flex-1 overflow-x-auto overflow-y-auto">
+                        <ExpenseTable
+                            expenses={expenses}
+                            onEdit={handleEditExpense}
+                            onDelete={handleDeleteExpense}
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    );
+
 }
 
-export default App
+export default App;
