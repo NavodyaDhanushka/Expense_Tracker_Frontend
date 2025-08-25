@@ -87,4 +87,4 @@ The frontend is styled using Tailwind CSS for a modern, responsive, and clean UI
 All components are fully responsive across devices.
 
 #### Frontend Interface
-![image alt]([client/Screenshot 2025-08-25 090324.png](https://github.com/NavodyaDhanushka/Expense_Tracker_Frontend/blob/main/client/Screenshot%202025-08-25%20090324.png))
+![image alt](https://github.com/NavodyaDhanushka/Expense_Tracker_Frontend/blob/3d6c4f0e3a3b79fe6e0200af42821cc5c35680bc/client/Screenshot%202025-08-25%20090324.png)
