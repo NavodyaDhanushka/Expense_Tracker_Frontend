@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const ExpenseForm = ({ onAdd }) => {
     const today = new Date().toISOString().slice(0, 10);
@@ -36,10 +37,26 @@ const ExpenseForm = ({ onAdd }) => {
 
             const data = await response.json();
             onAdd(data);
+
+            // ✅ Success SweetAlert
+            Swal.fire({
+                icon: "success",
+                title: "Expense Added!",
+                text: `${formData.title} was added successfully.`,
+                showConfirmButton: false,
+                timer: 2000,
+            });
+
             setFormData({ title: "", amount: "", category: "", description: "", date: today });
         } catch (error) {
             console.error("Error adding expense:", error);
-            alert("Error adding expense. Please try again.");
+
+            // ❌ Error SweetAlert
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Error adding expense. Please try again.",
+            });
         }
     };
 
@@ -120,9 +137,8 @@ const ExpenseForm = ({ onAdd }) => {
                 }}
                 className="w-full py-2 px-4 font-semibold rounded-lg border border-slate-300 bg-gradient-to-b from-slate-50 to-slate-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-300 focus-visible:ring-offset-2 active:opacity-100 transition-colors"
             >
-                 Add Expense
+                Add Expense
             </button>
-
         </form>
     );
 };

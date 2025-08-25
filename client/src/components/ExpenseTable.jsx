@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 
 const ExpenseTable = () => {
     const [expenses, setExpenses] = useState([]);
@@ -12,6 +13,7 @@ const ExpenseTable = () => {
     });
     const [searchTerm, setSearchTerm] = useState("");
 
+    // Fetch expenses
     const fetchExpenses = async () => {
         try {
             const res = await fetch("http://localhost:5000/api/expenses");
@@ -26,6 +28,7 @@ const ExpenseTable = () => {
         fetchExpenses();
     }, []);
 
+    // Start editing
     const handleEdit = (expense) => {
         setEditingExpense(expense._id);
         setEditData({
@@ -37,10 +40,12 @@ const ExpenseTable = () => {
         });
     };
 
+    // Edit form change
     const handleEditChange = (e) => {
         setEditData({ ...editData, [e.target.name]: e.target.value });
     };
 
+    // Save edits
     const handleEditSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -59,26 +64,66 @@ const ExpenseTable = () => {
             if (!res.ok) throw new Error("Failed to update expense");
             await fetchExpenses();
             setEditingExpense(null);
+
+            // ✅ Success alert
+            Swal.fire({
+                icon: "success",
+                title: "Updated!",
+                text: "Expense updated successfully.",
+                showConfirmButton: false,
+                timer: 1500,
+            });
         } catch (err) {
             console.error(err);
-            alert("Error updating expense");
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Error updating expense. Please try again.",
+            });
         }
     };
 
+    // Delete expense
     const handleDelete = async (id) => {
-        if (!window.confirm("Are you sure you want to delete this expense?")) return;
+        const result = await Swal.fire({
+            title: "Are you sure?",
+            text: "This expense will be permanently deleted!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, delete it!",
+        });
+
+        if (!result.isConfirmed) return;
+
         try {
             const res = await fetch(`http://localhost:5000/api/expenses/${id}`, {
                 method: "DELETE",
             });
             if (!res.ok) throw new Error("Failed to delete expense");
+
             setExpenses(expenses.filter((exp) => exp._id !== id));
+
+            // ✅ Success alert
+            Swal.fire({
+                icon: "success",
+                title: "Deleted!",
+                text: "Expense has been deleted.",
+                showConfirmButton: false,
+                timer: 1500,
+            });
         } catch (err) {
             console.error(err);
-            alert("Error deleting expense");
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Error deleting expense. Please try again.",
+            });
         }
     };
 
+    // Filter search
     const filteredExpenses = expenses.filter(
         (exp) =>
             exp.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -117,7 +162,6 @@ const ExpenseTable = () => {
                     </svg>
                 </div>
             </div>
-
 
             {/* Table */}
             <div className="overflow-x-auto shadow-lg rounded-lg">
