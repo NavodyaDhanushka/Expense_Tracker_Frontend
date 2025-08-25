@@ -85,3 +85,6 @@ Verify that all changes are reflected in MongoDB through the backend.
 The frontend is styled using Tailwind CSS for a modern, responsive, and clean UI.
 
 All components are fully responsive across devices.
+
+#### Frontend Interface
+![image alt](client/Screenshot 2025-08-25 090324.png)
