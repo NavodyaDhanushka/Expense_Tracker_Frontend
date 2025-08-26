@@ -38,7 +38,7 @@ const ExpenseForm = ({ onAdd }) => {
             const data = await response.json();
             onAdd(data);
 
-            // ✅ Success SweetAlert
+
             Swal.fire({
                 icon: "success",
                 title: "Expense Added!",
@@ -51,7 +51,7 @@ const ExpenseForm = ({ onAdd }) => {
         } catch (error) {
             console.error("Error adding expense:", error);
 
-            // ❌ Error SweetAlert
+
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
@@ -69,7 +69,6 @@ const ExpenseForm = ({ onAdd }) => {
                 Add New Expense
             </h2>
 
-            {/* Title */}
             <input
                 type="text"
                 name="title"
@@ -80,7 +79,7 @@ const ExpenseForm = ({ onAdd }) => {
                 className="w-full mb-4 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
 
-            {/* Amount */}
+
             <div className="relative mb-4">
                 <span className="absolute left-3 top-2.5 text-gray-500 font-medium">LKR</span>
                 <input
@@ -95,7 +94,7 @@ const ExpenseForm = ({ onAdd }) => {
                 />
             </div>
 
-            {/* Category */}
+
             <select
                 name="category"
                 value={formData.category}
@@ -111,7 +110,7 @@ const ExpenseForm = ({ onAdd }) => {
                 <option value="Shopping">Shopping</option>
             </select>
 
-            {/* Description */}
+
             <textarea
                 name="description"
                 placeholder="Description (optional)"
@@ -120,7 +119,7 @@ const ExpenseForm = ({ onAdd }) => {
                 className="w-full mb-4 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
             />
 
-            {/* Date */}
+
             <input
                 type="date"
                 name="date"
@@ -129,7 +128,7 @@ const ExpenseForm = ({ onAdd }) => {
                 className="w-full mb-6 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
 
-            {/* Submit Button */}
+
             <button
                 type="submit"
                 style={{

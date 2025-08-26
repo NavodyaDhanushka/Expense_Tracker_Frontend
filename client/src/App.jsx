@@ -1,5 +1,4 @@
 import { useState } from "react";
-import DashboardCard from "./components/DashboardCard.jsx";
 import ExpenseForm from "./components/ExpenseForm.jsx";
 import ExpenseTable from "./components/ExpenseTable.jsx";
 
@@ -25,7 +24,7 @@ function App() {
             <h1 className="text-2xl font-bold mb-6">Expense Tracker</h1>
 
             <div className="flex flex-1 gap-6 w-full h-full">
-                {/* Left side: Form */}
+
                 <div className="w-1/3 space-y-4">
                     {/*<div className="flex flex-wrap gap-4">
                         <DashboardCard title="Total Expenses" value="LKR 2,450.00" />
@@ -36,7 +35,6 @@ function App() {
                     <ExpenseForm onAdd={handleAddExpense} />
                 </div>
 
-                {/* Right side: Table */}
                 <div className="w-2/3 flex flex-col">
                     <div className="flex-1 overflow-x-auto overflow-y-auto">
                         <ExpenseTable

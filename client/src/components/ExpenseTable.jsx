@@ -13,7 +13,7 @@ const ExpenseTable = () => {
     });
     const [searchTerm, setSearchTerm] = useState("");
 
-    // Fetch expenses
+
     const fetchExpenses = async () => {
         try {
             const res = await fetch("http://localhost:5000/api/expenses");
@@ -28,7 +28,7 @@ const ExpenseTable = () => {
         fetchExpenses();
     }, []);
 
-    // Start editing
+
     const handleEdit = (expense) => {
         setEditingExpense(expense._id);
         setEditData({
@@ -40,12 +40,11 @@ const ExpenseTable = () => {
         });
     };
 
-    // Edit form change
     const handleEditChange = (e) => {
         setEditData({ ...editData, [e.target.name]: e.target.value });
     };
 
-    // Save edits
+
     const handleEditSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -65,7 +64,7 @@ const ExpenseTable = () => {
             await fetchExpenses();
             setEditingExpense(null);
 
-            // ✅ Success alert
+
             Swal.fire({
                 icon: "success",
                 title: "Updated!",
@@ -83,7 +82,7 @@ const ExpenseTable = () => {
         }
     };
 
-    // Delete expense
+
     const handleDelete = async (id) => {
         const result = await Swal.fire({
             title: "Are you sure?",
@@ -105,7 +104,6 @@ const ExpenseTable = () => {
 
             setExpenses(expenses.filter((exp) => exp._id !== id));
 
-            // ✅ Success alert
             Swal.fire({
                 icon: "success",
                 title: "Deleted!",
@@ -123,7 +121,7 @@ const ExpenseTable = () => {
         }
     };
 
-    // Filter search
+
     const filteredExpenses = expenses.filter(
         (exp) =>
             exp.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -133,7 +131,7 @@ const ExpenseTable = () => {
 
     return (
         <div className="max-w-6xl mx-auto p-4">
-            {/* Search */}
+
             <div className="relative mb-4" id="input">
                 <input
                     type="text"
@@ -163,7 +161,7 @@ const ExpenseTable = () => {
                 </div>
             </div>
 
-            {/* Table */}
+
             <div className="overflow-x-auto shadow-lg rounded-lg">
                 <table className="min-w-full bg-white divide-y divide-gray-200">
                     <thead className="bg-blue-500 text-white">
